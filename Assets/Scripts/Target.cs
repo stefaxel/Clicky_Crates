@@ -11,10 +11,13 @@ public class Target : MonoBehaviour
     private float xRange = 4f;
     private float ySpawnPos = -2f;
 
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         targetRb = GetComponent<Rigidbody>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);
         targetRb.AddTorque(RandomTorque(),RandomTorque(), RandomTorque(), ForceMode.Impulse);
@@ -46,6 +49,7 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);
+        gameManager.UpdateScore(5);
     }
 
     private void OnTriggerEnter(Collider other)
