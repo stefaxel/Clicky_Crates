@@ -13,6 +13,9 @@ public class Target : MonoBehaviour
 
     private GameManager gameManager;
 
+    public int pointValue;
+    public ParticleSystem explosionPartical;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,11 +52,17 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);
-        gameManager.UpdateScore(5);
+        Instantiate(explosionPartical, transform.position, explosionPartical.transform.rotation);
+        gameManager.UpdateScore(pointValue);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        if (!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
+        
     }
 }
